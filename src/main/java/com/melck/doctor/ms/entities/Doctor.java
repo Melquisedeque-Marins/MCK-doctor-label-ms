@@ -3,6 +3,8 @@ package com.melck.doctor.ms.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -10,13 +12,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tb_label")
-public class Label {
+@Table(name = "tb_doctor")
+public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long labelId;
+    @EqualsAndHashCode.Include
+    private Long doctorId;
 
-    private String code;
-    private String description;
+    private String name;
+
 }

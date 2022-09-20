@@ -1,13 +1,29 @@
-package com.melck.doctor.ms.entities;
+    package com.melck.doctor.ms.entities;
 
-import java.time.Instant;
+    import lombok.*;
 
-public class DoctorLabelling {
+    import javax.persistence.*;
+    import java.time.Instant;
 
-    private Case cases;
-    private Long doctorId;
-    private Label label;
 
-    private Instant createdAt;
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+    @Entity
+    @Table(name = "tb_doctor_labelling")
+    public class DoctorLabelling {
 
-}
+        @EqualsAndHashCode.Include
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        private Instant createdAt;
+
+        @OneToOne
+        @JoinColumn(name = "cases_case_id")
+        private Case cases;
+
+    }
