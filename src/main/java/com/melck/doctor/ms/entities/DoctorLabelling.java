@@ -26,7 +26,7 @@
         @JoinColumn(name = "case_id")
         private Case cases;
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "doctor_id")
         private Doctor doctor;
 
