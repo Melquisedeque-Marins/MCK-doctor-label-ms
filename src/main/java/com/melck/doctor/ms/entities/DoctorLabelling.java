@@ -23,7 +23,11 @@
         private Instant createdAt;
 
         @OneToOne
-        @JoinColumn(name = "cases_case_id")
+        @JoinColumn(name = "case_id")
         private Case cases;
+
+        @ManyToOne
+        @JoinColumn(name = "doctor_id")
+        private Doctor doctor;
 
     }

@@ -22,4 +22,7 @@ public class Doctor {
 
     private String name;
 
+    @OneToMany(mappedBy = "doctor")
+    private List<DoctorLabelling> labellings;
+
 }
