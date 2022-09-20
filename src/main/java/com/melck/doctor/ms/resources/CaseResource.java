@@ -36,6 +36,11 @@ public class CaseResource {
         return ResponseEntity.ok().body(cases);
     }
 
+    @DeleteMapping("/{caseId}")
+    public ResponseEntity<Case> delete (@PathVariable Long caseId){
+        service.delete(caseId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 
