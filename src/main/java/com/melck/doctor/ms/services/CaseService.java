@@ -41,4 +41,11 @@ public class CaseService {
             throw new IntegrityViolation("the entity with id: " + c.getCaseId() + " cannot be deleted");
         }
     }
+
+    @Transactional
+    public Case update(Long caseId, Case c) {
+        Case actualCase = findById(caseId);
+        actualCase.setCaseDescription(c.getCaseDescription());
+        return repository.save(actualCase);
+    }
 }

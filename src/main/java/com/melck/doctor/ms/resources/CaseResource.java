@@ -42,6 +42,12 @@ public class CaseResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{caseId}")
+    public ResponseEntity<Case> update(@PathVariable Long caseId, @RequestBody Case c){
+        Case updatedCase = service.update(caseId, c);
+        return ResponseEntity.ok().body(updatedCase);
+    }
+
 
 
 
