@@ -7,19 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DoctorLabellingDTO {
-
-    @NotBlank
+public class ResponseDoctorLabellingDTO {
+    private Long id;
     private Long caseId;
-
-    @NotBlank
+    private String caseDescription;
     private Long doctorId;
-
-    @NotBlank
     private Label label;
+    private Instant createdAt;
 }

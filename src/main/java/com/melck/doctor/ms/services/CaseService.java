@@ -5,6 +5,7 @@ import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.CaseRepository;
 import com.melck.doctor.ms.services.exceptions.IntegrityViolation;
 import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CaseService {
 
-    @Autowired
-    private CaseRepository repository;
+
+    private final CaseRepository repository;
+    private final LabelService labelService;
 
     @Transactional
     public Case insert(Case c) {
@@ -46,9 +49,16 @@ public class CaseService {
     }
 
     @Transactional
-    public Case update(Long caseId, Case c) {
+    public Case update(Long caseId, Case aCase) {
         Case actualCase = findById(caseId);
-        actualCase.setCaseDescription(c.getCaseDescription());
+        actualCase.setCaseDescription(aCase.getCaseDescription());
+        return repository.save(actualCase);
+    }
+
+    @Transactional
+    public Case updateLabel(Long caseId, Label label) {
+        Case actualCase = findById(caseId);
+        Label updatedLabel = labelService.update(actualCase.getLabel().getLabelId(), label);
         return repository.save(actualCase);
     }
 }

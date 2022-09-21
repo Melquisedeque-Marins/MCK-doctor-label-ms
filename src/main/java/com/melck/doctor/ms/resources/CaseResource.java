@@ -1,6 +1,8 @@
 package com.melck.doctor.ms.resources;
 
+import com.melck.doctor.ms.dtos.CaseDTO;
 import com.melck.doctor.ms.entities.Case;
+import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.services.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,10 @@ public class CaseResource {
     }
 
     @GetMapping("/{caseId}")
-    public ResponseEntity<Case> findById(@PathVariable Long caseId){
+    public ResponseEntity<CaseDTO> findById(@PathVariable Long caseId){
         Case c = service.findById(caseId);
-        return ResponseEntity.ok().body(c);
+        CaseDTO dto = new CaseDTO(c);
+        return ResponseEntity.ok().body(dto);
     }
 
 
@@ -44,8 +47,13 @@ public class CaseResource {
     }
 
     @PutMapping("/{caseId}")
-    public ResponseEntity<Case> update(@PathVariable Long caseId, @RequestBody Case c){
-        Case updatedCase = service.update(caseId, c);
+    public ResponseEntity<Case> update(@PathVariable Long caseId, @RequestBody Case aCase){
+        Case updatedCase = service.update(caseId, aCase);
+        return ResponseEntity.ok().body(updatedCase);
+    }
+    @PatchMapping("/{caseId}")
+    public ResponseEntity<Case> updateLabel(@PathVariable Long caseId, @RequestBody Label label){
+        Case updatedCase = service.updateLabel(caseId, label);
         return ResponseEntity.ok().body(updatedCase);
     }
 

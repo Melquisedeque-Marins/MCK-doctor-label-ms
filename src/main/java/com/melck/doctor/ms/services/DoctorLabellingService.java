@@ -2,6 +2,7 @@ package com.melck.doctor.ms.services;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.melck.doctor.ms.dtos.DoctorLabellingDTO;
+import com.melck.doctor.ms.dtos.ResponseDoctorLabellingDTO;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.entities.Doctor;
 import com.melck.doctor.ms.entities.DoctorLabelling;
@@ -31,12 +32,14 @@ public class DoctorLabellingService {
 
 
     @Transactional
-    public DoctorLabelling insert(DoctorLabellingDTO dto, Label label) {
+    public ResponseDoctorLabellingDTO insert(DoctorLabellingDTO dto) {
         DoctorLabelling dl = convertToDoctor(dto);
-        Label newLabel = labelService.insert(label);
+        Label newLabel = labelService.insert(dto.getLabel());
         dl.getACase().setLabel(newLabel);
         dl.setLabel(newLabel);
-        return repository.save(dl);
+        var newDl = repository.save(dl);
+        var respDto = convertToResponseDto(newDl);
+        return respDto;
     }
 
     private DoctorLabelling convertToDoctor(DoctorLabellingDTO dto){
@@ -46,5 +49,16 @@ public class DoctorLabellingService {
         doctorLabelling.setDoctor(doctor);
         doctorLabelling.setACase(aCase);
         return doctorLabelling;
+    }
+
+    private ResponseDoctorLabellingDTO convertToResponseDto(DoctorLabelling labelling){
+        ResponseDoctorLabellingDTO dto = new ResponseDoctorLabellingDTO();
+        dto.setId(labelling.getId());
+        dto.setCaseId(labelling.getACase().getCaseId());
+        dto.setCaseDescription(labelling.getACase().getCaseDescription());
+        dto.setDoctorId(labelling.getDoctor().getDoctorId());
+        dto.setLabel(labelling.getLabel());
+        dto.setCreatedAt(labelling.getCreatedAt());
+        return dto;
     }
 }

@@ -1,6 +1,7 @@
 package com.melck.doctor.ms.resources;
 
 import com.melck.doctor.ms.dtos.DoctorLabellingDTO;
+import com.melck.doctor.ms.dtos.ResponseDoctorLabellingDTO;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.entities.DoctorLabelling;
 import com.melck.doctor.ms.entities.Label;
@@ -22,8 +23,8 @@ public class DoctorLabellingResource {
     private DoctorLabellingService service;
 
     @PostMapping
-    public ResponseEntity<DoctorLabelling> insert(@RequestBody DoctorLabellingDTO dto, Label label){
-       DoctorLabelling doctorLabelling = service.insert(dto, label);
+    public ResponseEntity<ResponseDoctorLabellingDTO> insert(@RequestBody DoctorLabellingDTO dto){
+       ResponseDoctorLabellingDTO doctorLabelling = service.insert(dto);
        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(doctorLabelling.getId()).toUri();
        return ResponseEntity.created(uri).body(doctorLabelling);
     }
