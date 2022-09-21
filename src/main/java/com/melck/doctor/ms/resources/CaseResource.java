@@ -20,8 +20,8 @@ public class CaseResource {
     private CaseService service;
 
     @PostMapping
-    public ResponseEntity<Case> insert(@RequestBody Case c){
-        Case newCase = service.insert(c);
+    public ResponseEntity<CaseDTO> insert(@RequestBody Case c){
+        CaseDTO newCase = service.insert(c);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCase.getCaseId()).toUri();
         return ResponseEntity.created(uri).body(newCase);
     }

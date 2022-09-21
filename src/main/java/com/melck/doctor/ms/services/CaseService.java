@@ -1,5 +1,6 @@
 package com.melck.doctor.ms.services;
 
+import com.melck.doctor.ms.dtos.CaseDTO;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.CaseRepository;
@@ -22,9 +23,9 @@ public class CaseService {
     private final LabelService labelService;
 
     @Transactional
-    public Case insert(Case c) {
+    public CaseDTO insert(Case c) {
         Case newCase = repository.save(c);
-        return newCase;
+        return new CaseDTO(newCase);
     }
 
     @Transactional(readOnly = true)
@@ -59,6 +60,7 @@ public class CaseService {
     public Case updateLabel(Long caseId, Label label) {
         Case actualCase = findById(caseId);
         Label updatedLabel = labelService.update(actualCase.getLabel().getLabelId(), label);
+        actualCase.setLabel(updatedLabel);
         return repository.save(actualCase);
     }
 }

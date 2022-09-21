@@ -17,10 +17,8 @@ public class CaseDTO {
 
     private Long caseId;
     private String caseDescription;
-
-    private Instant createdAt;
-
     private Label label;
+    private Instant createdAt;
 
     public CaseDTO (Case aCase) {
         this.caseId = aCase.getCaseId();
