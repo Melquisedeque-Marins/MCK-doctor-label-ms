@@ -30,6 +30,7 @@ public class CaseResource {
         return ResponseEntity.ok().body(c);
     }
 
+
     @GetMapping
     public ResponseEntity<List<Case>> findAll(){
         List<Case> cases = service.findAll();

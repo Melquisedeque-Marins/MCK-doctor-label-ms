@@ -3,6 +3,8 @@ package com.melck.doctor.ms.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +21,5 @@ public class Label {
 
     private String code;
     private String description;
+
 }

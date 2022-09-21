@@ -1,6 +1,7 @@
 package com.melck.doctor.ms.services;
 
 import com.melck.doctor.ms.entities.Case;
+import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.CaseRepository;
 import com.melck.doctor.ms.services.exceptions.IntegrityViolation;
 import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
@@ -28,6 +29,8 @@ public class CaseService {
         return repository.findById(caseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Case with id: " + caseId + " must be founded"));
     }
+
+
     @Transactional(readOnly = true)
     public List<Case> findAll() {
         return repository.findAll();

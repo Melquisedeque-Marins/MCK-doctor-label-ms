@@ -1,5 +1,6 @@
 package com.melck.doctor.ms.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class Case {
     private String caseDescription;
 
     @OneToOne
-    @JoinColumn(name = "doctor_labelling_id")
-    private DoctorLabelling doctorLabelling;
+    @JoinColumn(name = "label_id")
+    private Label label;
 }
 
