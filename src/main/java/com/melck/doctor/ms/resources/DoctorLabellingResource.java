@@ -24,10 +24,17 @@ public class DoctorLabellingResource {
     private DoctorLabellingService service;
 
     @PostMapping
-    public ResponseEntity<ResponseDoctorLabellingDTO> insert(@Valid @RequestBody DoctorLabellingDTO dto){
-       ResponseDoctorLabellingDTO doctorLabelling = service.insert(dto);
+    public ResponseEntity<ResponseDoctorLabellingDTO> insert(@Valid @RequestBody DoctorLabellingDTO labellingDTO){
+       ResponseDoctorLabellingDTO doctorLabelling = service.insert(labellingDTO);
        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(doctorLabelling.getId()).toUri();
        return ResponseEntity.created(uri).body(doctorLabelling);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDoctorLabellingDTO> findById(@PathVariable Long id){
+        ResponseDoctorLabellingDTO dto = service.findById(id);
+
+        return ResponseEntity.ok().body(dto);
     }
 
 

@@ -8,6 +8,8 @@ import com.melck.doctor.ms.entities.DoctorLabelling;
 import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.DoctorLabellingRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,29 +22,23 @@ public class DoctorLabellingService {
     private final CaseService caseService;
     private final DoctorService doctorService;
 
+    private static Logger logger = LoggerFactory.getLogger(CaseService.class);
 
     @Transactional
     public ResponseDoctorLabellingDTO insert(DoctorLabellingDTO dto) {
         DoctorLabelling dl = convertToDoctor(dto);
         Label newLabel = labelService.insert(dto.getLabel());
         dl.getACase().setLabel(newLabel);
-        dl.setLabel(newLabel);
         var newDl = repository.save(dl);
-        var respDto = convertToResponseDto(newDl);
-        return respDto;
+        logger.info("The labelling was created with success");
+        return convertToResponseDto(newDl);
     }
 
-//    public Case deleteLabel(Long caseId) {
-//        Case actualCase = findById(caseId);
-//        labelService.delete(actualCase.getLabel().getLabelId());
-//        logger.info("The Label in case with id: " + caseId + "was updated with success.");
-//        return repository.save(actualCase);
-//
-//
-//    }
-
-
-
+    @Transactional(readOnly = true)
+    public ResponseDoctorLabellingDTO findById(Long id) {
+       // DoctorLabelling doctor = repository.findById(id);
+        return null;
+    }
 
     private DoctorLabelling convertToDoctor(DoctorLabellingDTO dto){
         DoctorLabelling doctorLabelling = new DoctorLabelling();
@@ -59,8 +55,9 @@ public class DoctorLabellingService {
         dto.setCaseId(labelling.getACase().getCaseId());
         dto.setCaseDescription(labelling.getACase().getCaseDescription());
         dto.setDoctorId(labelling.getDoctor().getDoctorId());
-        dto.setLabel(labelling.getLabel());
+        dto.setLabel(labelling.getACase().getLabel());
         dto.setCreatedAt(labelling.getCreatedAt());
         return dto;
     }
+
 }

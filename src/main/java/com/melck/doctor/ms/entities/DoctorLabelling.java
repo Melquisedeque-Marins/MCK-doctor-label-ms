@@ -36,10 +36,6 @@
         @JoinColumn(name = "doctor_id")
         private Doctor doctor;
 
-        @OneToOne
-        @JoinColumn(name = "label_id")
-        private Label label;
-
         @PrePersist
         public void preCreated(){
             createdAt = Instant.now();

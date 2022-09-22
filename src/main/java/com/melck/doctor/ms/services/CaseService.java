@@ -80,6 +80,24 @@ public class CaseService {
         return repository.save(actualCase);
     }
 
+
+    public Case deleteLabel(Long caseId) {
+        Case actualCase = findById(caseId);
+        try {
+            Long labelId = actualCase.getLabel().getLabelId();
+            actualCase.setLabel(null);
+            repository.save(actualCase);
+            labelService.delete(labelId);
+            logger.info("The Label in case with id: " + caseId + " was removed with success.");
+            return actualCase;
+        } catch (NullPointerException e){
+            logger.info("does not exist a label in the case with id: " + caseId , e.getMessage(), e);
+            throw new ResourceNotFoundException("Case with id: " + caseId + " does not have a label");
+
+        }
+
+    }
+
     @Transactional
     public Case updateLabel(Long caseId, Label label) {
         Case actualCase = findById(caseId);
@@ -89,4 +107,4 @@ public class CaseService {
         return repository.save(actualCase);
     }
 
-   }
+}

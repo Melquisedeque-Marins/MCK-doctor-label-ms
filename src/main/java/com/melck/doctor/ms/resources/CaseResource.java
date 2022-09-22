@@ -53,18 +53,16 @@ public class CaseResource {
         Case updatedCase = service.update(caseId, aCase);
         return ResponseEntity.ok().body(updatedCase);
     }
+
     @PatchMapping("/{caseId}")
-    public ResponseEntity<Case> updateLabel(@PathVariable Long caseId, @Valid @RequestBody Label label){
-        Case updatedCase = service.updateLabel(caseId, label);
-        return ResponseEntity.ok().body(updatedCase);
-    }
-    @PatchMapping("/{caseId}/label")
     public ResponseEntity<Case> deleteLabel(@PathVariable Long caseId){
         Case updatedCase = service.deleteLabel(caseId);
         return ResponseEntity.ok().body(updatedCase);
     }
-
-
-
+//    @PatchMapping("/{caseId}")
+//    public ResponseEntity<Case> updateLabel(@PathVariable Long caseId, @Valid @RequestBody Label label){
+//        Case updatedCase = service.updateLabel(caseId, label);
+//        return ResponseEntity.ok().body(updatedCase);
+//    }
 
 }
