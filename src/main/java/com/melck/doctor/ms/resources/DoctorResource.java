@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class DoctorResource {
     }
 
     @PutMapping("/{doctorId}")
-    public ResponseEntity<Doctor> update(@PathVariable Long doctorId, @RequestBody Doctor doctor){
+    public ResponseEntity<Doctor> update(@PathVariable Long doctorId, @Valid @RequestBody Doctor doctor){
         Doctor updatedDoctor = service.update(doctorId, doctor);
         return ResponseEntity.ok().body(updatedDoctor);
     }

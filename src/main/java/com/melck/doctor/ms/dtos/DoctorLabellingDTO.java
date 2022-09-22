@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -14,12 +15,12 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class DoctorLabellingDTO {
 
-    @NotBlank
+    @NotNull(message = "The case ID field cannot be null")
     private Long caseId;
 
-    @NotBlank
+    @NotNull(message = "The doctor ID field cannot be null")
     private Long doctorId;
 
-    @NotBlank
+    @NotNull(message = "The label field cannot be null")
     private Label label;
 }

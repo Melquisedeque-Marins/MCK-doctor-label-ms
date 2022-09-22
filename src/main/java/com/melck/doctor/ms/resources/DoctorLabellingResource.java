@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class DoctorLabellingResource {
     private DoctorLabellingService service;
 
     @PostMapping
-    public ResponseEntity<ResponseDoctorLabellingDTO> insert(@RequestBody DoctorLabellingDTO dto){
+    public ResponseEntity<ResponseDoctorLabellingDTO> insert(@Valid @RequestBody DoctorLabellingDTO dto){
        ResponseDoctorLabellingDTO doctorLabelling = service.insert(dto);
        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(doctorLabelling.getId()).toUri();
        return ResponseEntity.created(uri).body(doctorLabelling);

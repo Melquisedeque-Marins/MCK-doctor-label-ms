@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -47,12 +48,12 @@ public class CaseResource {
     }
 
     @PutMapping("/{caseId}")
-    public ResponseEntity<Case> update(@PathVariable Long caseId, @RequestBody Case aCase){
+    public ResponseEntity<Case> update(@PathVariable Long caseId, @Valid @RequestBody Case aCase){
         Case updatedCase = service.update(caseId, aCase);
         return ResponseEntity.ok().body(updatedCase);
     }
     @PatchMapping("/{caseId}")
-    public ResponseEntity<Case> updateLabel(@PathVariable Long caseId, @RequestBody Label label){
+    public ResponseEntity<Case> updateLabel(@PathVariable Long caseId, @Valid @RequestBody Label label){
         Case updatedCase = service.updateLabel(caseId, label);
         return ResponseEntity.ok().body(updatedCase);
     }

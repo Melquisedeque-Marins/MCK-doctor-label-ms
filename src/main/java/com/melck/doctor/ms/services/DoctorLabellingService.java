@@ -1,25 +1,15 @@
 package com.melck.doctor.ms.services;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.melck.doctor.ms.dtos.DoctorLabellingDTO;
 import com.melck.doctor.ms.dtos.ResponseDoctorLabellingDTO;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.entities.Doctor;
 import com.melck.doctor.ms.entities.DoctorLabelling;
 import com.melck.doctor.ms.entities.Label;
-import com.melck.doctor.ms.repositories.CaseRepository;
 import com.melck.doctor.ms.repositories.DoctorLabellingRepository;
-import com.melck.doctor.ms.services.exceptions.IntegrityViolation;
-import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service

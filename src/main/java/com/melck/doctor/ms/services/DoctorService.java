@@ -1,12 +1,10 @@
 package com.melck.doctor.ms.services;
 
 import com.melck.doctor.ms.entities.Doctor;
-import com.melck.doctor.ms.entities.Doctor;
 import com.melck.doctor.ms.repositories.DoctorRepository;
-import com.melck.doctor.ms.services.exceptions.IntegrityViolation;
+import com.melck.doctor.ms.services.exceptions.DataIntegrityViolationException;
 import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +36,8 @@ public class DoctorService {
         Doctor c = findById(DoctorId);
         try {
             repository.delete(c);
-        } catch (DataIntegrityViolationException e) {
-            throw new IntegrityViolation("the entity with id: " + c.getDoctorId() + " cannot be deleted");
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("the entity with id: " + c.getDoctorId() + " cannot be deleted");
         }
     }
 

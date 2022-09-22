@@ -4,11 +4,9 @@ import com.melck.doctor.ms.dtos.CaseDTO;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.CaseRepository;
-import com.melck.doctor.ms.services.exceptions.IntegrityViolation;
+import com.melck.doctor.ms.services.exceptions.DataIntegrityViolationException;
 import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,8 +42,8 @@ public class CaseService {
         Case c = findById(caseId);
         try {
             repository.delete(c);
-        } catch (DataIntegrityViolationException e) {
-            throw new IntegrityViolation("the entity with id: " + c.getCaseId() + " cannot be deleted");
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("the Case with id: " + c.getCaseId() + " cannot be deleted");
         }
     }
 
