@@ -32,6 +32,18 @@ public class DoctorLabellingService {
         return respDto;
     }
 
+//    public Case deleteLabel(Long caseId) {
+//        Case actualCase = findById(caseId);
+//        labelService.delete(actualCase.getLabel().getLabelId());
+//        logger.info("The Label in case with id: " + caseId + "was updated with success.");
+//        return repository.save(actualCase);
+//
+//
+//    }
+
+
+
+
     private DoctorLabelling convertToDoctor(DoctorLabellingDTO dto){
         DoctorLabelling doctorLabelling = new DoctorLabelling();
         Case aCase = caseService.findById(dto.getCaseId());

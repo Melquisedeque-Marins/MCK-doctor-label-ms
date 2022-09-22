@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 public interface LabelService {
 
 
-    @PostMapping
+    @PostMapping("/labels")
     public Label insert(@RequestBody Label label);
 
-    @PutMapping("/{labelId}")
+    @PutMapping("/labels/{labelId}")
     public Label update(@PathVariable("labelId") Long labelId, @RequestBody Label label );
+
+    @DeleteMapping("/labels/{labelId}")
+    public Label delete(@PathVariable("labelId") Long labelId);
 
 }

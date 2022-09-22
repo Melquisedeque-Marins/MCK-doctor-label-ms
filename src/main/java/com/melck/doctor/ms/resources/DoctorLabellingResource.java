@@ -30,4 +30,6 @@ public class DoctorLabellingResource {
        return ResponseEntity.created(uri).body(doctorLabelling);
     }
 
+
+
 }

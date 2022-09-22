@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -43,7 +44,7 @@ public class CaseService {
 
         try {
             Case c = repository.findById(caseId).get();
-            logger.info("the case with id: " + caseId + " was returned.");
+            logger.info("the case with id: " + caseId + " was founded.");
             return c;
         } catch (NoSuchElementException e) {
             logger.error("Case with id: " + caseId + " cannot be founded. " + e.getMessage(), e );
@@ -55,8 +56,9 @@ public class CaseService {
 
 
     @Transactional(readOnly = true)
-    public List<Case> findAll() {
-        return repository.findAll();
+    public List<CaseDTO> findAll() {
+        List<Case> cases = repository.findAll();
+        return cases.stream().map(c -> new CaseDTO(c)).collect(Collectors.toList());
     }
 
     public void delete(Long caseId) {
@@ -86,4 +88,5 @@ public class CaseService {
         logger.info("The Label in case with id: " + caseId + "was updated with success.");
         return repository.save(actualCase);
     }
-}
+
+   }
