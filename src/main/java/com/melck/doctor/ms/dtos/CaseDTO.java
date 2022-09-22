@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 
 @Getter
@@ -15,7 +16,9 @@ import java.time.Instant;
 @NoArgsConstructor
 public class CaseDTO {
 
+
     private Long caseId;
+    @NotBlank
     private String caseDescription;
     private Label label;
     private Instant createdAt;
