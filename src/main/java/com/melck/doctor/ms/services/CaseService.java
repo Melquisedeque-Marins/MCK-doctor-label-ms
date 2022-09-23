@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,11 +57,16 @@ public class CaseService {
 //                .orElseThrow(() -> new ResourceNotFoundException("Case with id: " + caseId + " cannot be founded"));
     }
 
+    @Transactional(readOnly = true)
+    public Page<ResponseCaseDTO> findAllCases( Pageable pageable) {
+        Page<Case> cases = repository.findAll(pageable);
+        return cases.map(c -> new ResponseCaseDTO(c));
+    }
 
     @Transactional(readOnly = true)
-    public List<ResponseCaseDTO> findAll() {
-        List<Case> cases = repository.findAll();
-        return cases.stream().map(c -> new ResponseCaseDTO(c)).collect(Collectors.toList());
+    public Page<ResponseCaseDTO> findCasesByLabel(String code, Pageable pageable) {
+        Page<Case> cases = repository.findAllPaged(code, pageable);
+        return cases.map(c -> new ResponseCaseDTO(c));
     }
 
     public void delete(Long caseId) {

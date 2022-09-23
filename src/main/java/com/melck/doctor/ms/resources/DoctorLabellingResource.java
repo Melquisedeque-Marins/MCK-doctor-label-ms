@@ -11,6 +11,8 @@ import com.melck.doctor.ms.services.CaseService;
 import com.melck.doctor.ms.services.DoctorLabellingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,7 +23,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/labellings")
+@RequestMapping("/doctor-labellings")
 public class DoctorLabellingResource {
 
     private final DoctorLabellingService service;
@@ -55,10 +57,20 @@ public class DoctorLabellingResource {
     }
 
     @GetMapping("/cases")
-    public ResponseEntity<List<ResponseCaseDTO>> findAllCases(){
-        List<ResponseCaseDTO> cases = caseService.findAll();
+    public ResponseEntity<Page<ResponseCaseDTO>> findAllCases(Pageable pageable) {
+        Page<ResponseCaseDTO> cases = caseService.findAllCases(pageable);
         return ResponseEntity.ok().body(cases);
     }
+
+
+    @GetMapping("/cases/label")
+    public ResponseEntity<Page<ResponseCaseDTO>> findCasesByLabel(
+            @RequestParam(value = "code", defaultValue = "") String code,
+            Pageable pageable) {
+        Page<ResponseCaseDTO> cases = caseService.findCasesByLabel(code.trim(), pageable);
+        return ResponseEntity.ok().body(cases);
+    }
+
 
     @DeleteMapping("/cases/{caseId}")
     public ResponseEntity<Case> deleteCase (@PathVariable Long caseId){
