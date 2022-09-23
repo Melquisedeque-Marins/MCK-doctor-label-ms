@@ -32,9 +32,7 @@
         @JoinColumn(name = "case_id")
         private Case aCase;
 
-        @ManyToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "doctor_id")
-        private Doctor doctor;
+        private Long doctorId;
 
         @PrePersist
         public void preCreated(){

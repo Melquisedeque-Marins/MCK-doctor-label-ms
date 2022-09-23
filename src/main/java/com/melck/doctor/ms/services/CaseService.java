@@ -2,6 +2,7 @@ package com.melck.doctor.ms.services;
 
 import com.melck.doctor.ms.DoctorLabelMsApplication;
 import com.melck.doctor.ms.dtos.CaseDTO;
+import com.melck.doctor.ms.dtos.ResponseCaseDTO;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.CaseRepository;
@@ -30,12 +31,12 @@ public class CaseService {
     private static Logger logger = LoggerFactory.getLogger(CaseService.class);
 
     @Transactional
-    public CaseDTO insert(CaseDTO dto) {
+    public ResponseCaseDTO insert(CaseDTO dto) {
         Case aCase = new Case();
         BeanUtils.copyProperties(dto, aCase);
         Case newCase = repository.save(aCase);
         logger.info("The case was created with success");
-        return new CaseDTO(newCase);
+        return new ResponseCaseDTO(newCase);
 
     }
 
@@ -56,9 +57,9 @@ public class CaseService {
 
 
     @Transactional(readOnly = true)
-    public List<CaseDTO> findAll() {
+    public List<ResponseCaseDTO> findAll() {
         List<Case> cases = repository.findAll();
-        return cases.stream().map(c -> new CaseDTO(c)).collect(Collectors.toList());
+        return cases.stream().map(c -> new ResponseCaseDTO(c)).collect(Collectors.toList());
     }
 
     public void delete(Long caseId) {

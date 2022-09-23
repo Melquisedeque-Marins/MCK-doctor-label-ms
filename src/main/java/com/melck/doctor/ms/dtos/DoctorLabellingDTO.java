@@ -22,5 +22,10 @@ public class DoctorLabellingDTO {
     private Long doctorId;
 
     @NotNull(message = "The label field cannot be null")
-    private Label label;
+    private String code;
+
+    @NotNull(message = "The label field cannot be null")
+    private String description;
+
+
 }

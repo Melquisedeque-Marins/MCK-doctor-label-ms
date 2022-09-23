@@ -14,13 +14,22 @@ import java.time.Instant;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CaseDTO {
+public class ResponseCaseDTO {
 
+
+    private Long caseId;
     @NotBlank
     private String caseDescription;
+    private Label label;
+    private Instant createdAt;
 
-    public CaseDTO (Case aCase) {
+    public ResponseCaseDTO(Case aCase) {
+        this.caseId = aCase.getCaseId();
         caseDescription = aCase.getCaseDescription();
+        createdAt = aCase.getCreatedAt();
+        label = aCase.getLabel();
+
     }
+
 
 }

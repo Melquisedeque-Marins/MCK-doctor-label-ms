@@ -3,7 +3,6 @@ package com.melck.doctor.ms.services;
 import com.melck.doctor.ms.dtos.DoctorLabellingDTO;
 import com.melck.doctor.ms.dtos.ResponseDoctorLabellingDTO;
 import com.melck.doctor.ms.entities.Case;
-import com.melck.doctor.ms.entities.Doctor;
 import com.melck.doctor.ms.entities.DoctorLabelling;
 import com.melck.doctor.ms.entities.Label;
 import com.melck.doctor.ms.repositories.DoctorLabellingRepository;
@@ -20,14 +19,14 @@ public class DoctorLabellingService {
     private final DoctorLabellingRepository repository;
     private final LabelService labelService;
     private final CaseService caseService;
-    private final DoctorService doctorService;
 
     private static Logger logger = LoggerFactory.getLogger(CaseService.class);
 
     @Transactional
     public ResponseDoctorLabellingDTO insert(DoctorLabellingDTO dto) {
         DoctorLabelling dl = convertToDoctor(dto);
-        Label newLabel = labelService.insert(dto.getLabel());
+        Label labelToSave = new Label(null, dto.getCode(), dto.getDescription());
+        var newLabel = labelService.insert(labelToSave);
         dl.getACase().setLabel(newLabel);
         var newDl = repository.save(dl);
         logger.info("The labelling was created with success");
@@ -43,8 +42,7 @@ public class DoctorLabellingService {
     private DoctorLabelling convertToDoctor(DoctorLabellingDTO dto){
         DoctorLabelling doctorLabelling = new DoctorLabelling();
         Case aCase = caseService.findById(dto.getCaseId());
-        Doctor doctor = doctorService.findById(dto.getDoctorId());
-        doctorLabelling.setDoctor(doctor);
+        doctorLabelling.setDoctorId(dto.getDoctorId());
         doctorLabelling.setACase(aCase);
         return doctorLabelling;
     }
@@ -54,7 +52,7 @@ public class DoctorLabellingService {
         dto.setId(labelling.getId());
         dto.setCaseId(labelling.getACase().getCaseId());
         dto.setCaseDescription(labelling.getACase().getCaseDescription());
-        dto.setDoctorId(labelling.getDoctor().getDoctorId());
+        dto.setDoctorId(labelling.getDoctorId());
         dto.setLabel(labelling.getACase().getLabel());
         dto.setCreatedAt(labelling.getCreatedAt());
         return dto;
