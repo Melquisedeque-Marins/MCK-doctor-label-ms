@@ -36,12 +36,6 @@ public class DoctorLabellingResource {
        return ResponseEntity.created(uri).body(doctorLabelling);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseDoctorLabellingDTO> findById(@PathVariable Long id){
-        ResponseDoctorLabellingDTO dto = service.findById(id);
-        return ResponseEntity.ok().body(dto);
-    }
-
     @PostMapping("/cases")
     public ResponseEntity<ResponseCaseDTO> insertCase(@Valid @RequestBody CaseDTO caseDTO){
         ResponseCaseDTO newCase = caseService.insert(caseDTO);
@@ -69,13 +63,6 @@ public class DoctorLabellingResource {
             Pageable pageable) {
         Page<ResponseCaseDTO> cases = caseService.findCasesByLabel(code.trim(), pageable);
         return ResponseEntity.ok().body(cases);
-    }
-
-
-    @DeleteMapping("/cases/{caseId}")
-    public ResponseEntity<Case> deleteCase (@PathVariable Long caseId){
-        caseService.delete(caseId);
-        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/cases/{caseId}")

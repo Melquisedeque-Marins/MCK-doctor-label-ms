@@ -33,12 +33,6 @@ public class DoctorLabellingService {
         return convertToResponseDto(newDl);
     }
 
-    @Transactional(readOnly = true)
-    public ResponseDoctorLabellingDTO findById(Long id) {
-       // DoctorLabelling doctor = repository.findById(id);
-        return null;
-    }
-
     private DoctorLabelling convertToDoctor(DoctorLabellingDTO dto){
         DoctorLabelling doctorLabelling = new DoctorLabelling();
         Case aCase = caseService.findById(dto.getCaseId());

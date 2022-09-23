@@ -50,36 +50,10 @@ class CaseRepositoryTest {
         Assertions.assertSame(result.get(), aCase);
     }
 
-//    @Test
-//    public void saveShouldThrowsAnMethodArgumentNotValidExceptionWhenTheInputDataDoesNotValid() {
-//        Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
-//            repository.save(invalidCase);
-//        });
-//    }
-
-    @Test
-    public void findByIdShouldReturnANonEmptyOptionalWhenIdExists() {
-        Optional<Case> result = repository.findById(1L);
-
-        assertEquals(result.get().getCaseId(), existingId);
-    }
-
-    @Test
-    public void deleteShouldDeleteObjectWhenIdExists() {
-        repository.deleteById(existingIdWithOutLabel);
-        Optional<Case> result = repository.findById(existingIdWithOutLabel);
-        Assertions.assertFalse(result.isPresent());
-    }
-
     @Test
     public void deleteShouldThrowEmptyResultDataAccessExceptionWhenIdDoesNotExist() {
-
         Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
             repository.deleteById(nonExistingId);
         });
     }
-
-
-
-
 }
