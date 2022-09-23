@@ -72,7 +72,7 @@ public class CaseService {
     public void delete(Long caseId) {
         Case c = findById(caseId);
         try {
-            repository.delete(c);
+            repository.deleteById(caseId);
             logger.info("The case with id: " + caseId + " was deleted with success.");
         } catch (org.springframework.dao.DataIntegrityViolationException e) {
             logger.error("The case cannot be deleted as the case with id: " + caseId + " is tied to another object.", e.getMessage(), e);
