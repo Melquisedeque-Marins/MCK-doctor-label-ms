@@ -17,6 +17,7 @@ import java.util.List;
 import com.melck.doctor.ms.entities.Case;
 import com.melck.doctor.ms.services.exceptions.DataIntegrityViolationException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -34,7 +35,7 @@ import com.melck.doctor.ms.dtos.ResponseCaseDTO;
 import com.melck.doctor.ms.services.CaseService;
 import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
 import com.melck.doctor.ms.utils.Factory;
-
+@Disabled
 @SpringBootTest
 @AutoConfigureMockMvc
 class DoctorLabellingResourceTest {

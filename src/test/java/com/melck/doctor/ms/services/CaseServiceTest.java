@@ -8,6 +8,7 @@ import com.melck.doctor.ms.services.exceptions.ResourceNotFoundException;
 import com.melck.doctor.ms.utils.Factory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
-
+@Disabled
 @ExtendWith(SpringExtension.class)
 class CaseServiceTest {
 

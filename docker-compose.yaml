@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  doctor-labelling:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: doctor-labelling-api
+    ports:
+      - '8080:8080'
+    links:
+      - "db:database"
+  db:
+    image: postgres:12-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: doctor-label
+
+    volumes:
+      - ./doctor-label-db:/var/lib/postgresql/data
+
+
+
