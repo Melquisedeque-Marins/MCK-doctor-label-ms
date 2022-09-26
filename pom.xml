@@ -70,7 +70,12 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.googlecode.flyway</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

@@ -20,6 +20,13 @@ services:
 
     volumes:
       - ./doctor-label-db:/var/lib/postgresql/data
+  label:
+    image: melquisedequejr/label
+    ports:
+      - '8081:8081'
+    environment:
+      PROFILE: prod
+
 
 
 
