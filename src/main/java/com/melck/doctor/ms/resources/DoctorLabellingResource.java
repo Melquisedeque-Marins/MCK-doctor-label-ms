@@ -11,6 +11,9 @@ import com.melck.doctor.ms.services.CaseService;
 import com.melck.doctor.ms.services.DoctorLabellingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +40,7 @@ public class DoctorLabellingResource {
     }
 
     @PostMapping("/cases")
+    @CacheEvict(value = "case", allEntries = true)
     public ResponseEntity<ResponseCaseDTO> insertCase(@Valid @RequestBody CaseDTO caseDTO){
         ResponseCaseDTO newCase = caseService.insert(caseDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newCase.getCaseId()).toUri();
@@ -58,6 +62,7 @@ public class DoctorLabellingResource {
 
 
     @GetMapping("/cases/label")
+    @Cacheable(value = "case")
     public ResponseEntity<Page<ResponseCaseDTO>> findCasesByLabel(
             @RequestParam(value = "code", defaultValue = "") String code,
             Pageable pageable) {
@@ -66,6 +71,7 @@ public class DoctorLabellingResource {
     }
 
     @PutMapping("/cases/{caseId}")
+    @CachePut(value = "case")
     public ResponseEntity<Case> updateCase(@PathVariable Long caseId, @Valid @RequestBody Case aCase){
         Case updatedCase = caseService.update(caseId, aCase);
         return ResponseEntity.ok().body(updatedCase);
